@@ -1,0 +1,39 @@
+    	#Esto es un_comentario
+    i = 0
+    while i < 5 do
+    puts "El valor de i es: #{i}"
+    i += 1
+    end
+    n = 2
+    do 
+    gets
+    chomp
+    print "si" 
+    print ""
+    numero1 = 1.5
+
+	hola = 0
+    
+if num2 != 0
+    num1 / num2
+else
+    "Error: Division por cero no permitida."
+  end
+else
+  "Opción invalida."
+end
+
+puts "El resultado es: #{resultado}"
+
+# Operaciones lógicas adicionales
+puts "Operaciones lógicas:"
+puts "La suma es mayor que el total ingresado #{suma > total}"
+puts "¿La suma es igual al total ingresado? #{suma == total}"
+
+
+	datos = []
+	puts "Ingrese 5 números:"
+	#Usar un bucle 'for' para recopilar los datos
+	for i in 1..5
+  	print "Número #{i}: "
+  	input = gets.chomp

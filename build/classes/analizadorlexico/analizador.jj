@@ -1,0 +1,97 @@
+// Ignorar mayúsculas y minúsculas en todo el análisis
+options {
+    IGNORE_CASE = true;
+}
+
+// Definición del analizador
+PARSER_BEGIN(analizador)
+    public class analizador {}
+PARSER_END(analizador)
+
+// Ignorar espacios en blanco, saltos de línea, tabulaciones y retornos de carro
+SKIP: {
+    " "       // Espacio
+    | "\r"    // Retorno de carro
+    | "\t"    // Tabulación
+    | "\n"    // Salto de línea
+}
+
+// Definición de palabras reservadas y sus mensajes en la terminal
+TOKEN: {
+    <CHOMP: "chomp"> { System.out.println("Operador lógico CHOMP <-> " + image + "\n"); }
+    | <PRINT: "print"> { System.out.println("Palabra reservada PRINT <-> " + image + "\n"); }
+    | <PUTS: "puts"> { System.out.println("Palabra reservada PUTS <-> " + image + "\n"); }
+    | <IF: "if"> { System.out.println("Palabra reservada condicional IF <-> " + image + "\n"); }
+    | <ELSE: "else"> { System.out.println("Palabra reservada condicional ELSE <-> " + image + "\n"); }
+    | <ELSIF: "elsif"> { System.out.println("Palabra reservada condicional ELSIF <-> " + image + "\n"); }
+    | <WHILE: "while"> { System.out.println("Palabra reservada ciclo WHILE <-> " + image + "\n"); }
+    | <FOR: "for"> { System.out.println("Palabra reservada ciclo FOR <-> " + image + "\n"); }
+    | <DO: "do"> { System.out.println("Palabra reservada ciclo DO <-> " + image + "\n"); }
+    | <TRUE: "true"> { System.out.println("Palabra reservada TRUE <-> " + image + "\n"); }
+    | <FALSE: "false"> { System.out.println("Palabra reservada FALSE <-> " + image + "\n"); }
+    | <RETURN: "return"> { System.out.println("Palabra reservada RETURN <-> " + image + "\n"); }
+    | <GETS: "gets"> { System.out.println("Palabra reservada GETS <-> " + image + "\n"); }
+    | <NEXT: "next"> { System.out.println("Palabra reservada NEXT <-> " + image + "\n"); }
+    | <CASE: "case"> { System.out.println("Palabra reservada CASE <-> " + image + "\n"); }
+    | <BREAK: "break"> { System.out.println("Palabra reservada BREAK <-> " + image + "\n"); }
+    | <END: "end"> { System.out.println("Palabra reservada END <-> " + image + "\n"); }
+}
+
+// Operadores aritméticos
+TOKEN: {
+    <SUMA: "+"> { System.out.println("Operador aritmético SUMA <-> " + image + "\n"); }
+    | <RESTA: "-"> { System.out.println("Operador aritmético RESTA <-> " + image + "\n"); }
+    | <MULTI: "*"> { System.out.println("Operador aritmético MULTI <-> " + image + "\n"); }
+    | <DIV: "/"> { System.out.println("Operador aritmético DIV <-> " + image + "\n"); }
+}
+
+// Operadores de comparación
+TOKEN: {
+    <IGUAL_QUE: "=="> { System.out.println("Operador comparativo IGUAL_QUE <-> " + image + "\n"); }
+    | <DIFERENTE_QUE: "!="> { System.out.println("Operador comparativo DIFERENTE_QUE <-> " + image + "\n"); }
+    | <MAYOR_QUE: ">"> { System.out.println("Operador comparativo MAYOR_QUE <-> " + image + "\n"); }
+    | <MENOR_QUE: "<"> { System.out.println("Operador comparativo MENOR_QUE <-> " + image + "\n"); }
+    | <MAYOR_IGUAL_QUE: ">="> { System.out.println("Operador comparativo MAYOR_IGUAL_QUE <-> " + image + "\n"); }
+    | <MENOR_IGUAL_QUE: "<="> { System.out.println("Operador comparativo MENOR_IGUAL_QUE <-> " + image + "\n"); }
+    | <AND: "&&"> { System.out.println("Operador lógico AND <-> " + image + "\n"); }
+    | <OR: "||"> { System.out.println("Operador lógico OR <-> " + image + "\n"); }
+}
+
+// Operador de asignación
+TOKEN: {
+    <ASIGNA: "="> { System.out.println("Operador de asignación ASIGNA <-> " + image + "\n"); }
+}
+
+// Comentarios: acepta todo lo que sigue a '#' hasta el final de la línea
+TOKEN: {
+    <COMENTARIO: "#" (~["\n", "\r"])*> { System.out.println("Comentario <-> " + image + "\n"); }
+}
+
+// Delimitadores
+TOKEN: {
+    <PUNTOCOMA: ";"> { System.out.println("Delimitador PUNTOCOMA <-> " + image + "\n"); }
+    | <LLAVE_IZQ: "{"> { System.out.println("Delimitador LLAVE_IZQ <-> " + image + "\n"); }
+    | <LLAVE_DER: "}"> { System.out.println("Delimitador LLAVE_DER <-> " + image + "\n"); }
+    | <PAREN_IZQ: "("> { System.out.println("Delimitador PAREN_IZQ <-> " + image + "\n"); }
+    | <PAREN_DER: ")"> { System.out.println("Delimitador PAREN_DER <-> " + image + "\n"); }
+    | <CORCH_IZQ: "["> { System.out.println("Delimitador CORCH_IZQ <-> " + image + "\n"); }
+    | <CORCH_DER: "]"> { System.out.println("Delimitador CORCH_DER <-> " + image + "\n"); }
+    | <COMA: ","> { System.out.println("Delimitador COMA <-> " + image + "\n"); }
+    | <PUNTO: "."> { System.out.println("Delimitador PUNTO <-> " + image + "\n"); }
+}
+
+// Nombres de variables
+TOKEN: {
+    <NOMBRE_VAR: (["a"-"z", "A"-"Z"]) (["a"-"z", "A"-"Z", "0"-"9"])*> { System.out.println("Nombre de variable <-> " + image + "\n"); }
+}
+
+// Números (incluye enteros y decimales opcionalmente con signo negativo)
+TOKEN: {
+    <NUMERO: ("-")? (["0"-"9"])+ ("." (["0"-"9"])+)?> { System.out.println("Número <-> " + image + "\n"); }
+}
+
+// Cadenas de texto
+TOKEN: {
+    <CADENA: "\"" ( (["a"-"z", "A"-"Z", "0"-"9", " ", ",", ".", "!", "{", "}", ":", "#", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "Ñ", "ü", "Ü", "+", "-", "*", "/", "=", ">", "<", "¿", "?"])+ | "" ) "\"" >
+    { System.out.println("Cadena de caracteres <-> " + image + "\n"); }
+}
